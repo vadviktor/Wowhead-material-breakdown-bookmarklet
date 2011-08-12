@@ -1,2 +1,0 @@
-To setup just drag this bookmarklet link [Wowhead material breakdown](javascript:document.getElementsByTagName('head')[0].appendChild(document.createElement('script')).setAttribute('src','http://wowheadbm.thinks.iamallama.com/bookmarklet.js')) to your bookmark bar in your browser. To use it just navigate to a craftable item in [Wowhead](http://www.wowhead.com) and use the bookmarklet. It will load the script and start analysing the item's material list, collecting every other material you will need to craft that item on different tiers.
-
