@@ -1,0 +1,1 @@
+This bookmarklet will be helpful for me and for any other users who can run their own PHP web server to parse Wowhead.com provided xml data on craftable items. The goal is to break down a craftable item into different tier parts to give an overview of the matterials needed to craft that item. Of course on one single page.
