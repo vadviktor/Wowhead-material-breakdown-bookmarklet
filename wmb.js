@@ -28,11 +28,13 @@ ikon.wmb = {
     /**
      * Collected tier reagents
      *
-     * reagents [ tier ] [ item id ] {
-     *                                   name
-     *                                   icon
-     *                                   number //integer always!
-     *                               }
+     * reagents [ tier ] [ {
+     *                      id
+     *                      name
+     *                      icon
+     *                      number //integer always!
+     *                     }
+     *                   ]
      * @private
      * @type object
      */
@@ -112,19 +114,66 @@ ikon.wmb = {
 
         this.gatherItemReagentsRecursive( this.getItemIdFromUrl( url ), 0 );
 
+        /** @todo copy non craftables to lower tiers  */
+
         if ( this.debug_c )
         {
             console.log( this.reagents );
         }
 
+        //this.displayTierReagents();
 
+        jqikon( '#ikon_wmb_header' ).text( 'Material breakdown' );
+    },
 
-        jqikon('#ikon_wmb_header').text('Material breakdown');
+    /**
+     * @private
+     */
+    displayTierReagents : function()
+    {
+        var tier = 0;
+        for ( tier = 0; tier < this.reagents.length; tier++ )
+        {
+            var item = 0;
+            for ( item = 0; item < this.reagents[tier].length; item++ )
+            {
+                var r = this.reagents[tier][item];
+                console.log( r );
+//                var html = '<div class="iconmedium" style="float: left; ">' +
+//                           '<ins style="background-image: url(http://wow.zamimg.com/images/wow/icons/medium/' + r
+//                    .icon + '.jpg); "></ins>' +
+//                           '<del></del>' +
+//                           '<a href="/item=' + item + '"></a>' +
+//                           '<span style="right: 0px; bottom: 0px; position: absolute; " class="glow q1">' +
+//                           '<div style="position: absolute; white-space: nowrap; left: -1px; top: -1px; color: black; z-index: 2; ">' + r
+//                    .number + '</div>' +
+//                           '<div style="position: absolute; white-space: nowrap; left: -1px; top: 0px; color: black; z-index: 2; ">' + r
+//                    .number + '</div>' +
+//                           '<div style="position: absolute; white-space: nowrap; left: -1px; top: 1px; color: black; z-index: 2; ">' + r
+//                    .number + '</div>' +
+//                           '<div style="position: absolute; white-space: nowrap; left: 0px; top: -1px; color: black; z-index: 2; ">' + r
+//                    .number + '</div>' +
+//                           '<div style="position: absolute; white-space: nowrap; left: 0px; top: 0px; z-index: 4; ">' + r
+//                    .number + '</div>' +
+//                           '<div style="position: absolute; white-space: nowrap; left: 0px; top: 1px; color: black; z-index: 2; ">' + r
+//                    .number + '</div>' +
+//                           '<div style="position: absolute; white-space: nowrap; left: 1px; top: -1px; color: black; z-index: 2; ">' + r
+//                    .number + '</div>' +
+//                           '<div style="position: absolute; white-space: nowrap; left: 1px; top: 0px; color: black; z-index: 2; ">' + r
+//                    .number + '</div>' +
+//                           '<div style="position: absolute; white-space: nowrap; left: 1px; top: 1px; color: black; z-index: 2; ">' + r
+//                    .number + '</div>' +
+//                           '<span style="visibility: hidden; ">' + r.number + '</span>' +
+//                           '</span>' +
+//                           '</div>'
+//                this.dumpOutput( html );
+            }
+        }
     },
 
     /**
      *
-     * @param item_id string|integer
+     * @param item_id string
      * @param tier string|integer
      */
     gatherItemReagentsRecursive : function( item_id, tier )
@@ -149,7 +198,8 @@ ikon.wmb = {
                 tier--;
             }
 
-            this.reagents[tier][item_id].craftable = false;
+            var r = this.getItemByIdInTier( tier, item_id );
+            r.craftable = false;
         }
     },
 
@@ -161,35 +211,60 @@ ikon.wmb = {
      * @param craftable booelan [true]
      * @return itemid integer|string
      */
-    addReagentToTier : function( reagent, tier, craftable )
+    addReagentToTier : function( reagent, tier )
     {
-        craftable = typeof craftable !== 'undefined' ? craftable : true;
+        tier = parseInt( tier );
 
-        var r_id = jqikon( reagent ).attr( 'id' );
+        var r_id = jqikon( reagent ).attr( 'id' ).toString();
         var r_name = jqikon( reagent ).attr( 'name' );
-        var r_icon = jqikon( reagent ).attr( 'icon' );
-        var r_count = jqikon( reagent ).attr( 'count' );
+        var r_icon = jqikon( reagent ).attr( 'icon' ).toLowerCase();
+        var r_count = parseInt( jqikon( reagent ).attr( 'count' ) );
 
         if ( typeof this.reagents[tier] === 'undefined' )
         {
             this.reagents[tier] = [];
         }
 
-        if ( typeof this.reagents[tier][r_id] === 'undefined' )
+        if ( ! this.getItemByIdInTier( tier, r_id ) )
         {
-            this.reagents[tier][r_id] = {
-                name : r_name,
-                icon : r_icon,
-                number : parseInt( r_count ),
-                craftable: craftable
-            };
+            this.reagents[tier].push( {
+                                          id : r_id,
+                                          name : r_name,
+                                          icon : r_icon,
+                                          number : r_count,
+                                          craftable: true
+                                      } );
         }
         else
         {
-            this.reagents[tier][r_id].number += parseInt( r_count );
+            var r = this.getItemByIdInTier( tier, r_id );
+            r.number += r_count;
         }
 
         return r_id;
+    },
+
+    /**
+     * Search for an item in a tier
+     *
+     * @param tier string|integer
+     * @param item_id string|integer
+     * @return boolean|object false if not found
+     */
+    getItemByIdInTier : function( tier, item_id )
+    {
+        tier = parseInt( tier );
+
+        var i = 0;
+        for ( i = 0; i < this.reagents[tier].length; i++ )
+        {
+            if ( this.reagents[tier][i].id == item_id )
+            {
+                return this.reagents[tier][i];
+            }
+        }
+
+        return false;
     },
 
     /**
