@@ -1,1 +1,1 @@
-Help will be ready for beta.
+This project will have to wait until I figure out how to overcome the missing sleep() function in Javascript as the recursive material queries are bombing the Wowhead server too fast.
