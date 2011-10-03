@@ -121,7 +121,7 @@ ikon.wmb = {
             console.log( this.reagents );
         }
 
-        //this.displayTierReagents();
+        this.displayTierReagents();
 
         jqikon( '#ikon_wmb_header' ).text( 'Material breakdown' );
     },
@@ -138,35 +138,34 @@ ikon.wmb = {
             for ( item = 0; item < this.reagents[tier].length; item++ )
             {
                 var r = this.reagents[tier][item];
-                console.log( r );
-//                var html = '<div class="iconmedium" style="float: left; ">' +
-//                           '<ins style="background-image: url(http://wow.zamimg.com/images/wow/icons/medium/' + r
-//                    .icon + '.jpg); "></ins>' +
-//                           '<del></del>' +
-//                           '<a href="/item=' + item + '"></a>' +
-//                           '<span style="right: 0px; bottom: 0px; position: absolute; " class="glow q1">' +
-//                           '<div style="position: absolute; white-space: nowrap; left: -1px; top: -1px; color: black; z-index: 2; ">' + r
-//                    .number + '</div>' +
-//                           '<div style="position: absolute; white-space: nowrap; left: -1px; top: 0px; color: black; z-index: 2; ">' + r
-//                    .number + '</div>' +
-//                           '<div style="position: absolute; white-space: nowrap; left: -1px; top: 1px; color: black; z-index: 2; ">' + r
-//                    .number + '</div>' +
-//                           '<div style="position: absolute; white-space: nowrap; left: 0px; top: -1px; color: black; z-index: 2; ">' + r
-//                    .number + '</div>' +
-//                           '<div style="position: absolute; white-space: nowrap; left: 0px; top: 0px; z-index: 4; ">' + r
-//                    .number + '</div>' +
-//                           '<div style="position: absolute; white-space: nowrap; left: 0px; top: 1px; color: black; z-index: 2; ">' + r
-//                    .number + '</div>' +
-//                           '<div style="position: absolute; white-space: nowrap; left: 1px; top: -1px; color: black; z-index: 2; ">' + r
-//                    .number + '</div>' +
-//                           '<div style="position: absolute; white-space: nowrap; left: 1px; top: 0px; color: black; z-index: 2; ">' + r
-//                    .number + '</div>' +
-//                           '<div style="position: absolute; white-space: nowrap; left: 1px; top: 1px; color: black; z-index: 2; ">' + r
-//                    .number + '</div>' +
-//                           '<span style="visibility: hidden; ">' + r.number + '</span>' +
-//                           '</span>' +
-//                           '</div>'
-//                this.dumpOutput( html );
+                var html = '<div class="iconmedium" style="float: left; ">' +
+                           '<ins style="background-image: url(http://wow.zamimg.com/images/wow/icons/medium/' + r
+                    .icon + '.jpg); "></ins>' +
+                           '<del></del>' +
+                           '<a href="/item=' + r.id + '"></a>' +
+                           '<span style="right: 0px; bottom: 0px; position: absolute; " class="glow q1">' +
+                           '<div style="position: absolute; white-space: nowrap; left: -1px; top: -1px; color: black; z-index: 2; ">' + r
+                    .number + '</div>' +
+                           '<div style="position: absolute; white-space: nowrap; left: -1px; top: 0px; color: black; z-index: 2; ">' + r
+                    .number + '</div>' +
+                           '<div style="position: absolute; white-space: nowrap; left: -1px; top: 1px; color: black; z-index: 2; ">' + r
+                    .number + '</div>' +
+                           '<div style="position: absolute; white-space: nowrap; left: 0px; top: -1px; color: black; z-index: 2; ">' + r
+                    .number + '</div>' +
+                           '<div style="position: absolute; white-space: nowrap; left: 0px; top: 0px; z-index: 4; ">' + r
+                    .number + '</div>' +
+                           '<div style="position: absolute; white-space: nowrap; left: 0px; top: 1px; color: black; z-index: 2; ">' + r
+                    .number + '</div>' +
+                           '<div style="position: absolute; white-space: nowrap; left: 1px; top: -1px; color: black; z-index: 2; ">' + r
+                    .number + '</div>' +
+                           '<div style="position: absolute; white-space: nowrap; left: 1px; top: 0px; color: black; z-index: 2; ">' + r
+                    .number + '</div>' +
+                           '<div style="position: absolute; white-space: nowrap; left: 1px; top: 1px; color: black; z-index: 2; ">' + r
+                    .number + '</div>' +
+                           '<span style="visibility: hidden; ">' + r.number + '</span>' +
+                           '</span>' +
+                           '</div>'
+                this.dumpOutput( html );
             }
         }
     },
