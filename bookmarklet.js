@@ -1,9 +1,8 @@
 (function()
 {
-
     function disassemble()
     {
-        jqikon.getScript( 'http://localhost/wmb/wmb.js', function()
+        jqikon.getScript( 'http://wmb.thinks.iamallama.com/wmb.js', function()
         {
             ikon.wmb.disassemble();
         } );

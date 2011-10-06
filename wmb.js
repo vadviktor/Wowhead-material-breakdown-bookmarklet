@@ -1,15 +1,7 @@
 var ikon = {};
 ikon.wmb = {
 
-    baseUrl : "http://192.168.56.101/wmb/",
-
-    /**
-     * Visual alerts
-     *
-     * @private
-     * @type boolean
-     */
-    debug_v : true,
+    baseUrl : "http://wmb.thinks.iamallama.com/",
 
     /**
      * Console debug messages
@@ -17,7 +9,7 @@ ikon.wmb = {
      * @private
      * @type boolean
      */
-    debug_c : true,
+    debug : true,
 
     /**
      * Output div
@@ -61,11 +53,7 @@ ikon.wmb = {
         }
         //error
         var msg = "No element found as an output anchor";
-        if ( this.debug_v )
-        {
-            alert( msg );
-        }
-        if ( this.debug_c )
+        if ( this.debug )
         {
             console.error( msg );
         }
@@ -96,15 +84,12 @@ ikon.wmb = {
         if ( jqikon( '#ikon_wmb_output' ).length === 1 )
         {
             var msg = "Material breakdown already launched";
-            if ( this.debug_c )
+            if ( this.debug )
             {
                 console.warn( msg );
             }
-            if ( this.debug_v )
-            {
-                alert( msg );
-            }
-            return;
+            alert( msg );
+            return false;
         }
 
         //can be run on craftable item
@@ -141,7 +126,7 @@ ikon.wmb = {
                                         dataType: 'xml',
                                         success: function( data, textStatus, jqXHR )
                                         {
-                                            if ( ikon.wmb.debug_c )
+                                            if ( ikon.wmb.debug )
                                             {
                                                 console.log( data );
                                                 console.log( textStatus );
@@ -152,7 +137,7 @@ ikon.wmb = {
                                         },
                                         error: function( jqXHR, textStatus, errorThrown )
                                         {
-                                            if ( ikon.wmb.debug_c )
+                                            if ( ikon.wmb.debug )
                                             {
                                                 console.error( jqXHR );
                                                 console.error( textStatus );
@@ -242,7 +227,7 @@ ikon.wmb = {
                             else
                             {
                                 ikon.wmb.reagents = data;
-                                if ( ikon.wmb.debug_c )
+                                if ( ikon.wmb.debug )
                                 {
                                     console.log( ikon.wmb.reagents );
                                 }
