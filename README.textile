@@ -1,2 +1,0 @@
-This project will have to wait until I figure out how to overcome the missing sleep() function in Javascript as the recursive material queries are bombing the Wowhead server too fast.
-I just need some days to think over the possibilities. :)

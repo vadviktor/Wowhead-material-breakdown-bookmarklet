@@ -5,7 +5,7 @@
     {
         jqikon.getScript( 'http://localhost/wmb/wmb.js', function()
         {
-            ikon.wmb.disassemble( document.URL );
+            ikon.wmb.disassemble();
         } );
     }
 
