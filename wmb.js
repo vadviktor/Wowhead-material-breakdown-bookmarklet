@@ -1,6 +1,8 @@
 var ikon = {};
 ikon.wmb = {
 
+    baseUrl : "http://192.168.56.101/wmb/",
+
     /**
      * Visual alerts
      *
@@ -105,13 +107,60 @@ ikon.wmb = {
             return;
         }
 
+        //can be run on craftable item
+        if ( ! this.isItemCraftable( this.getItemIdFromUrl( document.URL ) ) )
+        {
+            alert( 'This item is not crafted by any professions. Choose another one!' );
+        }
+
         //header
         this.dumpOutput( '<div class="text">' +
-                         '<h2 id="ikon_wmb_header" class="clear">Material breakdown (processing)</h2>' +
+                         '<h2 id="ikon_wmb_header" class="clear">Material breakdown</h2>' +
                          '<div class="block-bg"></div>' +
                          '</div>' );
 
+        //progress gif
+        this.dumpOutput( '<div id="ikon_wmb_prgogress" style="color:#ffd100">' +
+                         'Gathering material data is in progress, please be patient, this could take a minute!' +
+                         '</div>'
+        );
+
         this.getItemReagents(); //this is the last function call as it is a jsonp callback
+    },
+
+    /**
+     *
+     * @param item_id
+     */
+    isItemCraftable : function( item_id )
+    {
+        var xml_data = jqikon.ajax( {
+                                        type : 'GET',
+                                        async : false,
+                                        url : 'http://www.wowhead.com/item=' + item_id + '&xml',
+                                        dataType: 'xml',
+                                        success: function( data, textStatus, jqXHR )
+                                        {
+                                            if ( ikon.wmb.debug_c )
+                                            {
+                                                console.log( data );
+                                                console.log( textStatus );
+                                                console.log( jqXHR );
+                                                console.log( jqikon( data )
+                                                                 .find( 'createdBy>spell:first reagent' ) );
+                                            }
+                                        },
+                                        error: function( jqXHR, textStatus, errorThrown )
+                                        {
+                                            if ( ikon.wmb.debug_c )
+                                            {
+                                                console.error( jqXHR );
+                                                console.error( textStatus );
+                                                console.error( errorThrown );
+                                            }
+                                        }
+                                    } ).responseXML;
+        return jqikon( xml_data ).find( 'createdBy>spell:first reagent' ).length > 0 ? true : false;
     },
 
     /**
@@ -180,21 +229,27 @@ ikon.wmb = {
      */
     getItemReagents : function()
     {
-        jqikon.getJSON( "http://192.168.56.101/wmb/wmb.php?callback=?",
+        jqikon.getJSON( this.baseUrl + "wmb.php?callback=?",
                         {
                             itemid: ikon.wmb.getItemIdFromUrl( document.URL )
                         },
                         function( data )
                         {
-                            ikon.wmb.reagents = data;
-                            if ( ikon.wmb.debug_c )
+                            if ( typeof data.error != 'undefined' )
                             {
-                                console.log( ikon.wmb.reagents );
+                                alert( data.error );
                             }
+                            else
+                            {
+                                ikon.wmb.reagents = data;
+                                if ( ikon.wmb.debug_c )
+                                {
+                                    console.log( ikon.wmb.reagents );
+                                }
 
-                            ikon.wmb.displayTierReagents();
-
-                            jqikon( '#ikon_wmb_header' ).text( 'Material breakdown' );
+                                ikon.wmb.displayTierReagents();
+                            }
+                            jqikon( '#ikon_wmb_prgogress' ).remove();
                         } );
 
     },

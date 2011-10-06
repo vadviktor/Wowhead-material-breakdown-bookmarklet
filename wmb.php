@@ -90,6 +90,15 @@ class WowheadMaterialBreakdown
      */
     protected function getReagents( $item_id, $tier = 0, $parent_count = 1 )
     {
+        //something must have gotten into recursion
+        if ( $tier >= 10 )
+        {
+            $this->returnData( json_encode( array
+                                            ( 'error' => "Some reagent got into recursion. Please submit a ticket on the project's website." )
+                               )
+            );
+        }
+
         $reagents = $this->getItemReagents( $item_id );
         $reagents_count = count( $reagents );
         if ( $reagents_count > 0 && !in_array( $item_id, $this->non_craftables ) )
@@ -250,13 +259,25 @@ class WowheadMaterialBreakdown
      */
     public function disassemble()
     {
-        ini_set( 'max_execution_time', '60' );
+        if ( is_numeric( $_GET[ 'itemid' ] ) )
+        {
+            ini_set( 'max_execution_time', '90' );
 
-        $this->getReagents( $_GET[ 'itemid' ] );
-        $this->distibuteReagentsToLowerTiers();
+            $this->getReagents( $_GET[ 'itemid' ] );
+            $this->distibuteReagentsToLowerTiers();
 
-        $json = json_encode( $this->reagents );
+            $json = json_encode( $this->reagents );
 
+            $this->returnData( $json );
+        }
+        else
+        {
+            $this->returnData( array( 'error' => 'Item ID is not a numberic value' ) );
+        }
+    }
+
+    protected function returnData( $json )
+    {
         if ( $_GET[ 'callback' ] )
         {
             print $_GET[ 'callback' ] . "({$json});";
@@ -265,6 +286,8 @@ class WowheadMaterialBreakdown
         {
             print $json;
         }
+
+        exit;
     }
 
     /**
