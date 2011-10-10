@@ -39,6 +39,23 @@ class WowheadMaterialBreakdown
         7076, //essence of earth
         7082, //essence of air
         12803, //eliving essence
+
+        18582, //Azzinoth
+        18583, //Azzinoth
+        18584, //Azzinoth
+        9372, //Sul'thraze the Lasher
+        6948, //Hearthstone
+
+        22448, //Small Prismatic Shard
+        10998, //Lesser Astral Essence
+        22447, //Lesser Planar Essence
+        16202, //Lesser Eternal Essence
+        10938, //Lesser Magic Essence
+        11134, //Lesser Mystic Essence
+        11174, //Lesser Nether Essence
+        52718, //Lesser Celestial Essence
+        34056, //Lesser Cosmic Essence
+
     );
 
     /**
