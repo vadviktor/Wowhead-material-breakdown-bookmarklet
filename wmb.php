@@ -266,7 +266,15 @@ class WowheadMaterialBreakdown
             {
                 if ( $reagent[ 'craftable' ] == false )
                 {
-                    $this->reagents[ $tier + 1 ][ ] = $reagent;
+                    $next_tier_reagent = &$this->getItemByIdInTier( $tier + 1, $reagent[ 'id' ] );
+                    if ( !isset( $next_tier_reagent ) )
+                    {
+                        $this->reagents[ $tier + 1 ][ ] = $reagent;
+                    }
+                    else
+                    {
+                        $next_tier_reagent[ 'number' ] += $reagent[ 'number' ];
+                    }
                 }
             }
         }
