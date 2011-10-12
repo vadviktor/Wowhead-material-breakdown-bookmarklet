@@ -110,9 +110,10 @@ class WowheadMaterialBreakdown
         //something must have gotten into recursion
         if ( $tier >= 10 )
         {
-            $this->returnData( json_encode( array
-                                            ( 'error' => "Some reagent got into recursion. Please submit a ticket on the project's website." )
-                               )
+            $this->returnData(
+                json_encode( array
+                             ( 'error' => "Some reagent got into recursion. Please submit a ticket on the project's website." )
+                )
             );
         }
 
@@ -272,6 +273,8 @@ class WowheadMaterialBreakdown
     }
 
     /**
+     * main()
+     *
      * @return void
      */
     public function disassemble()
