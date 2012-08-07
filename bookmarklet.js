@@ -2,7 +2,7 @@
 {
     function disassemble()
     {
-        jqikon.getScript( 'http://wmb.thinks.iamallama.com/wmb.js', function()
+        jqikon.getScript( 'http://wmb.ikon.org.hu/wmb.js', function()
         {
             ikon.wmb.disassemble();
         } );

@@ -1,7 +1,7 @@
 var ikon = {};
 ikon.wmb = {
 
-    baseUrl : "http://wmb.thinks.iamallama.com/",
+    baseUrl : "http://wmb.ikon.org.hu/",
 
     /**
      * Console debug messages
