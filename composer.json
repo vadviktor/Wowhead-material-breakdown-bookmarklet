@@ -1,6 +1,12 @@
 {
-    "require": {
-        "symfony/dom-crawler": "2.0.*",
-        "symfony/css-selector": "2.0.*"
+    "repositories"     :[
+        {
+            "type":"vcs",
+            "url" :"https://github.com/vadviktor/CssSelector"
+        }
+    ],
+    "require"          :{
+        "symfony/dom-crawler"  :"2.0.*",
+        "symfony/css-selector":"2.0.16-p1"
     }
 }

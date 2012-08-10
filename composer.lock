@@ -1,13 +1,15 @@
 {
-    "hash": "b82d4a555f36c9494dea380d46cb5052",
+    "hash": "a3c0d95802d7ac440d7a21451afacbe2",
     "packages": [
         {
             "package": "symfony/css-selector",
-            "version": "v2.0.16"
+            "version": "v2.0.16-p1"
         },
         {
             "package": "symfony/dom-crawler",
-            "version": "v2.0.16"
+            "version": "2.0.x-dev",
+            "source-reference": "v2.0.16",
+            "commit-date": "1341837830"
         }
     ],
     "packages-dev": null,

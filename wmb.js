@@ -42,8 +42,7 @@ ikon.wmb = {
     getAnchorElement:function () {
         var h2s = jqikon("h2[class*='clear']");
         var j_h2s = h2s.length;
-        var i = 0;
-        for (i = 0; i < j_h2s; i++) {
+        for (var i = 0; i < j_h2s; i++) {
             if (jqikon(h2s[i]).text() === 'Contribute') {
                 return jqikon(h2s[i]).parent();
             }
@@ -140,8 +139,7 @@ ikon.wmb = {
     displayTierReagents:function () {
         var html = '<div class="listview"><table class="listview-mode-default">';
 
-        var tier = 0;
-        for (tier = 0; tier < this.reagents.length; tier++) {
+        for (var tier = 0; tier < this.reagents.length; tier++) {
             html += '<thead><tr><th><div><a href="javascript:;"><span>' +
                 '<span>TIER ' + tier + '</span>' +
                 '</span></a></div></th></tr></thead>' +
@@ -149,8 +147,7 @@ ikon.wmb = {
                 '<td style="padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; ">' +
                 '<div style="margin-top: 0px; margin-right: auto; margin-bottom: 0px; margin-left: auto; ">';
 
-            var item = 0;
-            for (item = 0; item < this.reagents[tier].length; item++) {
+            for (var item = 0; item < this.reagents[tier].length; item++) {
                 var r = this.reagents[tier][item];
                 html += '<div class="iconmedium" style="float: left; ">' +
                     '<ins style="background-image: url(http://wow.zamimg.com/images/wow/icons/medium/' + r
